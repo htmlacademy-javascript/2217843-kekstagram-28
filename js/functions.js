@@ -1,57 +1,29 @@
-// Проверка длины строки
+const checkStringLength = (string, limit) => String(string).length <= limit;
 
-const checkLimit = (string, limit) => {
-  if (string.length <= limit) {
-    return true;
-  }
-  return false;
-};
+checkStringLength('hello', 6);
 
-checkLimit ('hello', 6);
 
-// Проверка на палиндром
-
-const isPalindrome = (phrase) => {
-  const array = phrase.split('');
-  const filteredArray = array.filter((value) => value !== ' ');
-  const string = filteredArray.join('').toLowerCase();
-  const reversedArray = filteredArray.reverse();
-  const newString = reversedArray.join('').toLowerCase();
-
-  if(string === newString) {
-    return true;
-  } else {
-    return false;
-  }
+const isPalindrome = (string) => {
+  string = String(string).toLowerCase().replaceAll(' ', '');
+  return string === string.split('').reverse().join('');
 };
 
 isPalindrome('А роза упала на лапу Азора');
 
-// Извлечь цифры из строки, вернуть целое положительное число
 
 const extractNumber = (string) => {
-  if (typeof string === 'number') {
-    return Math.abs(string);
-  }
-  let result = '';
-  for (let i = 0; i < string.length; i++) {
-    if (!Number.isNaN(parseInt(string.at(i), 10))) {
-      result += string.at(i);
-    }
-  }
-  return parseInt(result, 10);
+  string = String(string).replace(/\D/g, '');
+  return parseInt(string, 10);
 };
 
-extractNumber(-10);
+extractNumber(1.5);
 
-// Дополнить строку
-const myPadStart = (string, minLength, pad) => {
-  const actualPad = minLength - string.length;
-  if (actualPad <= 0) {
-    return string;
+
+const createNewString = (string, minLength, pad) => {
+  while (string.length < minLength) {
+    string = pad.slice(0, minLength - string.length) + string;
   }
-
-  return pad.slice(0, actualPad % pad.length) + pad.repeat(actualPad / pad.length) + string;
+  return string;
 };
 
-myPadStart('qwerty', 4, '0');
+createNewString('qwerty', 4, '0');
